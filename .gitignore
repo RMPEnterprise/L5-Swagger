@@ -1,3 +1,9 @@
+/.idea
+/.vscode
+/vendor
+*.sublime-project
+*.sublime-workspace
+
 /vendor
 /node_modules
 composer.phar

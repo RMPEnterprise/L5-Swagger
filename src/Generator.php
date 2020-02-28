@@ -113,6 +113,20 @@ class Generator
      */
     protected function scanFilesForDocumentation()
     {
+        if (config('l5-swagger.raw_yaml')) {
+            $yaml = (new YamlScanner)
+                ->getYaml(
+                    $this->appDir,
+                    ['exclude' => $this->excludedDirs]
+                );
+
+            \Storage::put('api-docs.yaml', $yaml);
+
+            $this->swagger = new FakeSwagger($yaml);
+
+            return $this;
+        }
+
         if ($this->isOpenApi()) {
             $this->swagger = \OpenApi\scan(
                 $this->annotationsDir,
